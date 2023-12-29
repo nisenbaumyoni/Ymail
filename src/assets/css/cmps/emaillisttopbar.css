@@ -1,0 +1,14 @@
+.emaillisttopbar {
+    padding-inline-start: 16px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.emaillisttopbar-actions {
+    display: grid;
+    padding: 0 10px;
+    grid-auto-flow: column;
+    column-gap: 16px;
+}

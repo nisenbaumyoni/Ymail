@@ -1,0 +1,84 @@
+.emailindex {
+    height: 100%;
+    background-color: #f6f8fc;
+    display: grid;
+    grid-template-areas:
+        'logo           emailfilter'
+        'compose-button emailindex-main'
+        'sidebar        emailindex-main';
+    grid-template-rows: auto auto 1fr;
+    grid-template-columns: 256px 1fr;
+}
+
+.emailindex-main {
+    grid-area: emailindex-main;
+    background-color: white;
+    margin-bottom: 16px;
+    margin-inline-end: 16px;
+    overflow: hidden;
+    flex-grow: 1;
+    min-width: 0;
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .emailindex {
+        grid-template-areas:
+            'hamburgermenu          logo'
+            'emailindex-main        emailindex-main'
+            ;
+        grid-template-rows: auto 1fr;
+        grid-template-columns: 50px 1fr;
+    }
+
+    .emaillisttopbar {
+        display: none; /*DEFECT: showing the Emaillisttopbar while shouldn't on this defined media */
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .emaillist {
+        margin: 0;
+        border-radius: 0;
+    }
+
+
+    .emailfilter {
+        display: none;
+    }
+    
+    .hamburgermenu {
+        display: inline;
+        grid-area: 1 / 1 / span 1 / span 1; /*DEFECT: not showing the hamburger menu on this defined media */
+        align-self: center;
+        justify-self: center;
+    }
+
+    .logo {
+        padding: 12px 10px;
+    }
+
+    .sidebar-bg {
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        z-index: 20;
+        background-color: rgba(0, 0, 0, 0.2);
+        display: none;
+    }
+
+    .sidebar-bg.visible {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar {
+        flex-grow: 1;
+        width: 80%;
+        height: 100%;
+        background-color: rgb(236, 236, 236);
+    }
+}

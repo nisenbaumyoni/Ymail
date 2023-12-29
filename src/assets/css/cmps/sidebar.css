@@ -1,0 +1,7 @@
+.sidebar {
+  grid-area: sidebar;
+  /* border: 20px black; */
+  border: 20px;
+  border-color: black;
+  margin-inline-end: 10px
+}
