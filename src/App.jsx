@@ -8,6 +8,7 @@ import {
 //pages
 import { EmailIndex } from "./pages/EmailIndex";
 import { About } from "./pages/About";
+import { EmailDetails } from "./pages/EmailDetails";
 
 export function App() {
   return (
@@ -17,12 +18,9 @@ export function App() {
           <Routes>
             <Route path="/" element={<EmailIndex />} />
             <Route path="/about" element={<About />} />
-            <Route path="/email/:folderId?" element={<EmailIndex />}>
-              <Route
-                path="/email/:folderId/:emailId"
-              />
-            </Route>
-          <Route path="*" element={<Navigate to="/email" replace/>}/>
+
+            <Route path="/email/:emailId" element={<EmailDetails/>}/>
+            {/* <Route path="*" element={<Navigate to="/email" replace />} /> */}
           </Routes>
           {/* <UserMsg /> */}
         </main>

@@ -1,3 +1,29 @@
-.emailpreview{
-    
+.emailpreview {
+    font-weight: bold;
+    border: 1px solid transparent;
+    padding: 0 13px;
+    display: grid;
+    grid-template-rows: 1fr;
+    /* checkbox, star, from/to/draft, labels, subject, date/actions */
+    /* Link should span across several columns */
+    grid-template-columns: auto auto 200px auto 1fr auto;
+    align-items: center;
+}
+
+.emailpreview:hover {
+    box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0,
+        0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    mix-blend-mode: multiply;
+}
+
+.emailpreview-sentat {
+    /* grid-area: 2 / 3 / span 1 / span 1; */
+}
+
+.emailpreview-subject {
+    /* grid-area: 3 / 2 / span 1 / span 1; */
+}
+
+.emailpreview-fields{
+    display: grid;
 }

@@ -1,3 +1,43 @@
-.emaildetails{
-    
+.emaildetails {
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.emaildetails-actions {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: start;
+  height: 60px;
+}
+
+.emaildetails-content {
+  flex-grow: 1;
+  background-color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  height: 100%;
+  overflow-y: auto;
+  user-select: text;
+}
+
+.emaildetails-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.emaildetails-subject {
+  font-size: 20px;
+  padding-inline-end: 10px;
+}
+
+.emaildetails-sentat {
+  font-size: 90%;
+  color: grey;
 }

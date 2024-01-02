@@ -51,19 +51,6 @@ function createRobot(model = '', type = '', batteryStatus = 100) {
     }
 }
 
-function _createRobots() {
-    let robots = utilService.loadFromStorage(STORAGE_KEY)
-    if (!robots || !robots.length) {
-        robots = [
-            { _id: 'r2', model: 'Salad-O-Matic', batteryStatus: 80, type: 'Cooking' },
-            { _id: 'r3', model: 'Dusty', batteryStatus: 100, type: 'Cleaning' },
-            { _id: 'r1', model: 'Dominique Sote', batteryStatus: 100, type: 'Pleasure' },
-            { _id: 'r4', model: 'DevTron', batteryStatus: 40, type: 'Office' }
-        ]
-        utilService.saveToStorage(STORAGE_KEY, robots)
-    }
-}
-
 
 
 

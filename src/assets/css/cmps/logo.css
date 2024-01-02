@@ -1,6 +1,7 @@
 .logo {
   grid-area: logo;
   border: 3em black;
+  display: flex;
 }
 
 .logo h1 {
