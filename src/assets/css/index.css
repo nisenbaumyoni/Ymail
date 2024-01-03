@@ -13,6 +13,7 @@
 /* Components */
 @import "./cmps/app-header.css";
 @import "./cmps/emailfilter.css";
+@import "./cmps/emailpreview.css";
 @import "./cmps/emaillist.css";
 @import "./cmps/emaillisttopbar.css";
 @import "./cmps/logo.css";

@@ -46,9 +46,7 @@
     }
 
 
-    .emailfilter {
-        display: none;
-    }
+  
     
     .hamburgermenu {
         display: inline;
@@ -80,5 +78,8 @@
         width: 80%;
         height: 100%;
         background-color: rgb(236, 236, 236);
+    }
+    .emailfilter {
+        display: none;
     }
 }

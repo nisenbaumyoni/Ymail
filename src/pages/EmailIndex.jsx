@@ -20,14 +20,14 @@ import { HamburgerMenu } from "../cmps/HamburgerMenu";
 
 export function EmailIndex() {
   const [emails, setEmails] = useState([]);
-  const [folder, setFolder] = useState(['Inbox']);
+  const [folder, setFolder] = useState(["Inbox"]);
   const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter());
 
   useEffect(() => {
     loadEmails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterBy]);
-  
+
   function onSetFilter(fieldsToUpdate) {
     setFilterBy((prevFilterBy) => ({ ...prevFilterBy, ...fieldsToUpdate }));
   }
@@ -49,6 +49,20 @@ export function EmailIndex() {
     console.log("EmailIndex onDeleteEmail");
   }
 
+  // eslint-disable-next-line no-unused-vars
+  async function onUpdateEmail(emailToUpdate) {
+    try {
+      const updatedEmail = await emailService.save(emailToUpdate);
+      setEmails((prevEmails) => {
+        prevEmails.map((email) => {
+          return email.id === updatedEmail.id ? updatedEmail : email;
+        });
+      });
+    } catch (error) {
+      console.log("Failed on email update");
+    }
+  }
+
   return (
     <section className="emailindex">
       <HamburgerMenu />
@@ -58,7 +72,13 @@ export function EmailIndex() {
 
       <section className="emailindex-main">
         <EmailListTopBar />
-        <EmailList emails={emails} onDeleteEmail={onDeleteEmail} folder={folder}/>
+        <EmailList
+          emails={emails}
+          folder={folder}
+          onUpdateEmail={onUpdateEmail}
+          onDeleteEmail={onDeleteEmail}
+
+        />
       </section>
     </section>
   );

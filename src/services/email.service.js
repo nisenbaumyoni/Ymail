@@ -89,7 +89,7 @@ function createEmail(
   folder = "draft"
 ) {
   const id = utilService.makeId();
-  const sentAt = new Date.now();
+  const sentAt = "";
   const removedAt = null;
   const read = true;
   const starred = false;

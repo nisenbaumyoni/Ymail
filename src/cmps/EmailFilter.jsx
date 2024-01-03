@@ -76,8 +76,8 @@ export function EmailFilter({ filterBy, onSetFilter }) {
             name="dateSort"
             value={filterByToEdit.dateSort}
             onClick={handleSortChange}
-          >
-            {filterByToEdit.dateSort === "desc" ? "desc" : "asc"}
+          >Date
+            {filterByToEdit.dateSort === "desc" ? "↓" : "↑"}
           </button>
         </div>
       </form>

@@ -1,3 +1,10 @@
+// 1. Router
+// 2. move from full size to mobile size
+// 3. EmailList is not spreading up
+// 4. EmailFilter is not spreading up - move out from form to components only
+// 5. back img in EmailDetails
+
+
 import {
   Navigate,
   Route,
@@ -16,11 +23,11 @@ export function App() {
       <Router>
         <main className="app">
           <Routes>
-            <Route path="/" element={<EmailIndex />} />
-            <Route path="/about" element={<About />} />
-
+            <Route path="/" element={<Navigate replace to="/inbox"/>} />
+            <Route path="/:folder" element={<EmailIndex />} />
             <Route path="/email/:emailId" element={<EmailDetails/>}/>
-            {/* <Route path="*" element={<Navigate to="/email" replace />} /> */}
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<Navigate replace to="/inbox"/>} />
           </Routes>
           {/* <UserMsg /> */}
         </main>
@@ -31,19 +38,20 @@ export function App() {
 
 //////////////
 {
-  /* <Router>
-<main className="app">
-  <Routes>
-    <Route path="/" element={<About />} />
-    <Route path="/about" element={<About />} />
-    <Route path="/email/:folderId?" element={<EmailIndex />}>
-      <Route
-        path="/email/:folderId/:emailId"
-        element={<EmailDetails />}
-      />
-    </Route>
-  </Routes>
-  <UserMsg />
-</main>
-</Router> */
+  // return (
+  //   <section className="main-app">
+  //     <Router>
+  //       <main className="app">
+  //         <Routes>
+  //           <Route path="/" element={<EmailIndex />} />
+  //           <Route path="/about" element={<About />} />
+
+  //           <Route path="/email/:emailId" element={<EmailDetails/>}/>
+  //           {/* <Route path="*" element={<Navigate to="/email" replace />} /> */}
+  //         </Routes>
+  //         {/* <UserMsg /> */}
+  //       </main>
+  //     </Router>
+  //   </section>
+  // );
 }

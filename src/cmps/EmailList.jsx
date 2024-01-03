@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { EmailPreview } from "./EmailPreview";
 
-export function EmailList({ emails, onDeleteEmail,folder }) {
+export function EmailList({ emails, folder, onDeleteEmail, onUpdateEmail }) {
   if (!emails) return <div>Loading</div>;
   if (emails.length === 0) return <div>No emails in the folder</div>;
 

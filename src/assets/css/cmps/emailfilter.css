@@ -1,3 +1,6 @@
+/* TODO - revisit*/
+@media only screen and (min-width: 600px){
+
 .emailfilter {
   grid-area: emailfilter;
   padding: 10px;
@@ -9,4 +12,5 @@
 .emailfilter-field {
     display: flex;
     gap: 7px;
+}
 }
