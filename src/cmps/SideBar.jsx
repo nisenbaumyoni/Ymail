@@ -1,6 +1,11 @@
-export function SideBar() {
-    return(
-        // <div>SideBar</div>
-        <section className="sidebar">SideBar</section>
-    )
+import { EmailComposeButton } from "./EmailComposeButton";
+
+export function SideBar(onComposeClick) {
+
+
+  return (
+    <section className="sidebar">
+      <EmailComposeButton onComposeClick={onComposeClick} />
+    </section>
+  );
 }

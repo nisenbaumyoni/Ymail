@@ -20,8 +20,13 @@ import { HamburgerMenu } from "../cmps/HamburgerMenu";
 
 export function EmailIndex() {
   const [emails, setEmails] = useState([]);
-  const [folder, setFolder] = useState(["Inbox"]);
+  const [folder, setFolder] = useState(["inbox"]);
   const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter());
+
+  const params = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     loadEmails();
@@ -63,6 +68,16 @@ export function EmailIndex() {
     }
   }
 
+  function onComposeClick() {
+    // hideUserMsg();
+    // open the compose dialog, while staying in the same folder and
+    // retaining the search params
+    setSearchParams((prev) => {
+      prev.set("compose", "new");
+      return prev;
+    });
+  }
+
   return (
     <section className="emailindex">
       <HamburgerMenu />
@@ -77,7 +92,6 @@ export function EmailIndex() {
           folder={folder}
           onUpdateEmail={onUpdateEmail}
           onDeleteEmail={onDeleteEmail}
-
         />
       </section>
     </section>

@@ -43,15 +43,35 @@ async function query(filterBy) {
     read = read || "";
     starred = starred || "";
 
-    emails = emails.filter((email) =>
-      email.from.toLowerCase().includes(from.toLowerCase()) &&
-      email.to.toLowerCase().includes(to.toLowerCase()) &&
-      read !== "all"
-        ? email.read.toLowerCase().includes(read.toLowerCase())
-        : true && starred !== "all"
-        ? email.starred.toLowerCase().includes(starred.toLowerCase())
-        : true && email.folder.toLowerCase().includes(folder.toLowerCase())
+    console.log("read ", read);
+    console.log("starred ", starred);
+    console.log("dateSort ", dateSort);
+    console.log("folder ", folder);
+
+    emails = emails.filter(
+      (email) =>
+        email.folder.toLowerCase().includes(folder.toLowerCase()) &&
+        (starred === "all" ||
+          (email.starred.toLowerCase().includes(starred.toLowerCase()))) &&
+        (read === "all" ||
+          email.read.toLowerCase().includes(read.toLowerCase()))
     );
+
+    //   emails = emails.filter((email) =>
+    //   email.folder.toLowerCase().includes(folder.toLowerCase()) &&
+    //   (starred ==='all' || email.starred.toLowerCase().includes(starred.toLowerCase())) &&
+    //   (read ==='all' || email.read.toLowerCase().includes(read.toLowerCase()))
+    // );
+
+    //   emails = emails.filter((email) =>
+    //   email.from.toLowerCase().includes(from.toLowerCase()) &&
+    //   email.to.toLowerCase().includes(to.toLowerCase()) &&
+    //   read !== "all"
+    //     ? email.read.toLowerCase().includes(read.toLowerCase())
+    //     : true && starred !== "all"
+    //     ? email.starred.toLowerCase().includes(starred.toLowerCase())
+    //     : true && email.folder.toLowerCase().includes(folder.toLowerCase())
+    // );
   }
 
   dateSort === "asc"
@@ -114,7 +134,7 @@ function mockMailAdress() {
   return lorem.generateWords(1) + "@" + lorem.generateWords(1) + ".com";
 }
 
-function _createMockEmails(numOfEmailsToMock = 30) {
+function _createMockEmails(numOfEmailsToMock = 5) {
   let emails = utilService.loadFromStorage(STORAGE_KEY);
 
   if (!emails || !emails.length) {
@@ -137,9 +157,9 @@ function _createMockEmails(numOfEmailsToMock = 30) {
         id: utilService.makeId(),
         subject: lorem.generateWords(4),
         body: lorem.generateParagraphs(5),
-        read: Math.random() >= 0.8 ? "read" : "unread",
-        starred: Math.random() <= 0.2 ? "starred" : "unstarred",
-        sentAt: Date.now() - Math.floor(Math.random() * 30000000),
+        read: Math.random() >= 0.5 ? "read" : "unread",
+        starred: Math.random() <= 0.5 ? "starred" : "unstarred",
+        sentAt: Date.now() - Math.floor(Math.random() * 30000000000),
         removedAt: "",
         from: mockFrom,
         to: mockTo,
