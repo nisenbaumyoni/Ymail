@@ -29,6 +29,7 @@ export function EmailIndex() {
   const location = useLocation();
 
   useEffect(() => {
+    setSearchParams(filterBy)
     loadEmails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterBy]);
@@ -78,11 +79,16 @@ export function EmailIndex() {
     });
   }
 
+  function onFolderClick(){
+    
+    console.log("EmailIndex.onFolderClick");
+  }
+
   return (
     <section className="emailindex">
       <HamburgerMenu />
       <Logo />
-      <SideBar />
+      <SideBar onComposeClick={onComposeClick} onFolderClick={onFolderClick}/>
       <EmailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
 
       <section className="emailindex-main">

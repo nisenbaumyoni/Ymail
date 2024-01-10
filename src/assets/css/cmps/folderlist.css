@@ -1,0 +1,32 @@
+.folderlist {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Folder (Inbox, Sent, etc) */
+
+.folderlist-folder {
+    line-height: 20px;
+    cursor: pointer;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-inline-start: 24px;
+    border-start-end-radius: 24px;
+    border-end-end-radius: 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.folderlist-folder:hover {
+    background-color: rgba(0, 0, 0, 0.052);
+}
+
+.folderlist-folder.active {
+    font-weight: bold;
+    background-color: #d3e3fd;
+}
+
+.folderlist::before {
+    height: 20px;
+}
