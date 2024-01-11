@@ -30,3 +30,7 @@
 .folderlist::before {
     height: 20px;
 }
+
+.folderlist-inbox-img {
+    content: url(https://ssl.gstatic.com/ui/v1/icons/mail/gm3/1x/inbox_baseline_nv700_20dp.png);
+}

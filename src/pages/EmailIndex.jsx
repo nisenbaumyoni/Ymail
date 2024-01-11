@@ -64,6 +64,7 @@ export function EmailIndex() {
   // }
 
   function onSetFilter(fieldsToUpdate) {
+    console.log("EmailIndex.onsetfilter , fieldstoupdate ",fieldsToUpdate);
     setFilterBy((prevFilterBy) => ({ ...prevFilterBy, ...fieldsToUpdate }));
   }
 
@@ -99,8 +100,12 @@ export function EmailIndex() {
     });
   }
 
-  function onFolderClick(folderId) {
+  function onFolderClick(folderId, inboxCounter) {
     console.log("EmailIndex.onFolderClick", folderId);
+    // const field = "folder"
+    // const value = folderId
+    // onSetFilter((prevFilter) => ({ ...prevFilter, [field]: value }));
+
     // const navigateArgs = {
     //   pathname: `/email/${folder}`,
     // };
