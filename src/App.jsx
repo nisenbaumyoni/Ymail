@@ -18,20 +18,17 @@ import { EmailDetails } from "./pages/EmailDetails";
 import { EmailCompose } from "./pages/EmailCompose";
 
 export function App() {
-
   return (
     <section className="main-app">
       <Router>
         <main className="app">
           <Routes>
             <Route path="/" element={<Navigate replace to="/inbox" />} />
-            {/* <Route path="/:folder" element={<EmailIndex />} /> */}
-
             <Route path="/:folder" element={<EmailIndex />}>
-              <Route path="/:folder/edit" element={<EmailCompose />} />
+              <Route path="/:folder/:emailId" element={<EmailDetails />} />
             </Route>
 
-            <Route path="/email/:emailId" element={<EmailDetails />} />
+            {/* <Route path="/:folder/edit" element={<EmailCompose />} /> */}
             <Route path="/about" element={<About />} />
             <Route path="*" element={<Navigate replace to="/inbox" />} />
           </Routes>
@@ -40,23 +37,4 @@ export function App() {
       </Router>
     </section>
   );
-}
-
-//////////////
-{
-  // return (
-  //   <section className="main-app">
-  //     <Router>
-  //       <main className="app">
-  //         <Routes>
-  //           <Route path="/" element={<EmailIndex />} />
-  //           <Route path="/about" element={<About />} />
-  //           <Route path="/email/:emailId" element={<EmailDetails/>}/>
-  //           {/* <Route path="*" element={<Navigate to="/email" replace />} /> */}
-  //         </Routes>
-  //         {/* <UserMsg /> */}
-  //       </main>
-  //     </Router>
-  //   </section>
-  // );
 }

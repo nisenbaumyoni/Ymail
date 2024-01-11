@@ -29,6 +29,9 @@ export function EmailIndex() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  let {emailId} = params
+  let curFolder = params.folder
+  
   useEffect(() => {
     setSearchParams(filterBy);
     loadEmails();
@@ -94,10 +97,13 @@ export function EmailIndex() {
     // hideUserMsg();
     // open the compose dialog, while staying in the same folder and
     // retaining the search params
-    setSearchParams((prev) => {
-      prev.set("compose", "new");
-      return prev;
-    });
+    // setSearchParams((prev) => {
+    //   prev.set("compose", "new");
+    //   return prev;
+    // });
+
+    const url=`/${curFolder}?compose=new`
+    navigate(url)
   }
 
   function onFolderClick(folderId, inboxCounter) {
@@ -116,6 +122,8 @@ export function EmailIndex() {
     // navigate(navigateArgs);
   }
 
+  const isComposeOpen =  !!searchParams.get("compose")
+
   return (
     <section className="emailindex">
       <HamburgerMenu />
@@ -125,12 +133,14 @@ export function EmailIndex() {
 
       <section className="emailindex-main">
         <EmailListTopBar />
-        <EmailList
+        {!emailId && <EmailList
           emails={emails}
           folder={filterBy.folder}
           onUpdateEmail={onUpdateEmail}
           onDeleteEmail={onDeleteEmail}
-        />
+        />}
+        {emailId && <Outlet/>}
+        {(isComposeOpen) && <EmailCompose/>}
       </section>
     </section>
   );
