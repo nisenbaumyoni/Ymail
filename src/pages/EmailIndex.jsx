@@ -20,8 +20,9 @@ import { HamburgerMenu } from "../cmps/HamburgerMenu";
 
 export function EmailIndex() {
   const [emails, setEmails] = useState([]);
-  const [folder, setFolder] = useState(["inbox"]);
   const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter());
+  const [folder, setFolder] = useState(["inbox"]);
+  const [inboxCounter, setInboxCounter] = useState(countFolder("inbox"));
 
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,18 +30,16 @@ export function EmailIndex() {
   const location = useLocation();
 
   useEffect(() => {
-    setSearchParams(filterBy)
+    setSearchParams(filterBy);
     loadEmails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterBy]);
 
-  function onSetFilter(fieldsToUpdate) {
-    setFilterBy((prevFilterBy) => ({ ...prevFilterBy, ...fieldsToUpdate }));
-  }
-
-  function onClearFilter() {
-    setFilterBy(emailService.getDefaultFilter());
-  }
+  useEffect(() => {
+    setInboxCounter(countFolder("inbox"));
+    console.log("InboxCounter ",inboxCounter);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [emails]);
 
   async function loadEmails() {
     try {
@@ -49,6 +48,27 @@ export function EmailIndex() {
     } catch (err) {
       console.log("Had issues loading emails", err);
     }
+  }
+
+  function countFolder(folderId) {
+    return emails.filter((email) => email.folder === folderId).length;
+  }
+
+  // async function countInbox() {
+  //   try {
+  //     const emails = await emailService.query(filterBy);
+  //     setEmails(emails);
+  //   } catch (err) {
+  //     console.log("Had issues loading emails", err);
+  //   }
+  // }
+
+  function onSetFilter(fieldsToUpdate) {
+    setFilterBy((prevFilterBy) => ({ ...prevFilterBy, ...fieldsToUpdate }));
+  }
+
+  function onClearFilter() {
+    setFilterBy(emailService.getDefaultFilter());
   }
 
   function onDeleteEmail() {
@@ -79,23 +99,30 @@ export function EmailIndex() {
     });
   }
 
-  function onFolderClick(){
-    
-    console.log("EmailIndex.onFolderClick");
+  function onFolderClick(folderId) {
+    console.log("EmailIndex.onFolderClick", folderId);
+    // const navigateArgs = {
+    //   pathname: `/email/${folder}`,
+    // };
+    // const composeVal = searchParams.get("compose");
+    // if (composeVal) {
+    //   navigateArgs.search = `?compose=${composeVal}`;
+    // }
+    // navigate(navigateArgs);
   }
 
   return (
     <section className="emailindex">
       <HamburgerMenu />
       <Logo />
-      <SideBar onComposeClick={onComposeClick} onFolderClick={onFolderClick}/>
+      <SideBar onComposeClick={onComposeClick} onFolderClick={onFolderClick} />
       <EmailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
 
       <section className="emailindex-main">
         <EmailListTopBar />
         <EmailList
           emails={emails}
-          folder={folder}
+          folder={filterBy.folder}
           onUpdateEmail={onUpdateEmail}
           onDeleteEmail={onDeleteEmail}
         />

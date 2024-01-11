@@ -43,10 +43,10 @@ async function query(filterBy) {
     read = read || "";
     starred = starred || "";
 
-    console.log("read ", read);
-    console.log("starred ", starred);
-    console.log("dateSort ", dateSort);
-    console.log("folder ", folder);
+    // console.log("read ", read);
+    // console.log("starred ", starred);
+    // console.log("dateSort ", dateSort);
+    // console.log("folder ", folder);
 
     emails = emails.filter(
       (email) =>
@@ -134,7 +134,7 @@ function mockMailAdress() {
   return lorem.generateWords(1) + "@" + lorem.generateWords(1) + ".com";
 }
 
-function _createMockEmails(numOfEmailsToMock = 5) {
+function _createMockEmails(numOfEmailsToMock = 30) {
   let emails = utilService.loadFromStorage(STORAGE_KEY);
 
   if (!emails || !emails.length) {
@@ -171,7 +171,6 @@ function _createMockEmails(numOfEmailsToMock = 5) {
   }
 }
 
-//TODO
 function getDefaultFilter() {
   return {
     read: "all",

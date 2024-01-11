@@ -4,7 +4,6 @@ import { utilService } from "../services/util.service";
 
 export function EmailPreview({ email, folder , onDeleteEmail, onEmailClick, onUpdateEmail }) {
 
-  // console.log('EmailPreview/email',email );
   return (
     <article className="emailpreview">
       <div className="emailpreview-multichoise-actions">multi</div>

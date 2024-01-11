@@ -18,6 +18,7 @@ import { EmailDetails } from "./pages/EmailDetails";
 import { EmailCompose } from "./pages/EmailCompose";
 
 export function App() {
+
   return (
     <section className="main-app">
       <Router>

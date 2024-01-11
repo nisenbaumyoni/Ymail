@@ -3,7 +3,7 @@ import { Link, useNavigate, useOutletContext, useParams } from "react-router-dom
 import { emailService } from "../services/email.service";
 
 export function EmailCompose(props) {
-  console.log('props', props);
+  console.log('EmailCompose(props) ', props);
   const [email, setEmail] = useState(emailService.createEmail());
 //   const { onAddEmail, onUpdateEmail } = useOutletContext();
   const navigate = useNavigate();

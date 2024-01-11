@@ -11,10 +11,6 @@ export function EmailFilter({ filterBy, onSetFilter }) {
   function handleChange(ev) {
     let { value, name: field, type } = ev.target;
 
-    // console.log('field ', field);
-    // console.log('type ', type);
-    // console.log('value ', value);
-
     value = type === "number" ? +value : value;
 
     setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }));
