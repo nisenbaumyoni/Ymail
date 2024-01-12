@@ -28,6 +28,7 @@ export const emailService = {
   getById,
   createEmail,
   getDefaultFilter,
+  countFolder,
   loggedinUser,
 };
 
@@ -52,26 +53,10 @@ async function query(filterBy) {
       (email) =>
         email.folder.toLowerCase().includes(folder.toLowerCase()) &&
         (starred === "all" ||
-          (email.starred.toLowerCase().includes(starred.toLowerCase()))) &&
+          email.starred.toLowerCase().includes(starred.toLowerCase())) &&
         (read === "all" ||
           email.read.toLowerCase().includes(read.toLowerCase()))
     );
-
-    //   emails = emails.filter((email) =>
-    //   email.folder.toLowerCase().includes(folder.toLowerCase()) &&
-    //   (starred ==='all' || email.starred.toLowerCase().includes(starred.toLowerCase())) &&
-    //   (read ==='all' || email.read.toLowerCase().includes(read.toLowerCase()))
-    // );
-
-    //   emails = emails.filter((email) =>
-    //   email.from.toLowerCase().includes(from.toLowerCase()) &&
-    //   email.to.toLowerCase().includes(to.toLowerCase()) &&
-    //   read !== "all"
-    //     ? email.read.toLowerCase().includes(read.toLowerCase())
-    //     : true && starred !== "all"
-    //     ? email.starred.toLowerCase().includes(starred.toLowerCase())
-    //     : true && email.folder.toLowerCase().includes(folder.toLowerCase())
-    // );
   }
 
   dateSort === "asc"
@@ -79,6 +64,11 @@ async function query(filterBy) {
     : emails.sort((a, b) => b.sentAt - a.sentAt);
 
   return emails;
+}
+
+async function countFolder(folderId) {
+  let emails = await storageService.query(STORAGE_KEY);
+  return emails.filter((email) => email.folder === folderId).length;
 }
 
 function getById(id) {

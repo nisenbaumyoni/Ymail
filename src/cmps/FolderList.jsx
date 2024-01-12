@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { folderService } from "../services/folder.service";
 
 // eslint-disable-next-line react/prop-types
-export function FolderList({ onFolderClick }) {
+export function FolderList({ onFolderClick, inboxCounter }) {
   const [folders, setFolders] = useState([]);
 
   useEffect(() => {
@@ -30,14 +30,11 @@ export function FolderList({ onFolderClick }) {
               onFolderClick(folder.id);
             }}
           >
-            <div>
-              {folder.name}
-
-              {folder.id === "inbox" ? "in" : ""}
+            <img className={"folderlist-" + folder.id + "-img"} />
+            <div>{folder.name}</div>
+            <div className="folderlist-count">
+              {folder.id === "inbox" ? inboxCounter : ""}
             </div>
-            {/* <div className="email-folder-count">
-              {getCount(folder.id) || ""}
-            </div> */}
           </a>
         );
       })}

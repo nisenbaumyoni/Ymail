@@ -21,28 +21,23 @@ import { HamburgerMenu } from "../cmps/HamburgerMenu";
 export function EmailIndex() {
   const [emails, setEmails] = useState([]);
   const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter());
-  const [folder, setFolder] = useState(["inbox"]);
-  const [inboxCounter, setInboxCounter] = useState(countFolder("inbox"));
+  const [inboxCounter, setInboxCounter] = useState();
 
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const isComposeOpen = !!searchParams.get("compose");
 
-  let {emailId} = params
-  let curFolder = params.folder
-  
+  let { emailId } = params;
+  let curFolder = params.folder;
+
   useEffect(() => {
-    setSearchParams(filterBy);
     loadEmails();
+    setSearchParams(filterBy);
+    countInbox();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterBy]);
-
-  useEffect(() => {
-    setInboxCounter(countFolder("inbox"));
-    console.log("InboxCounter ",inboxCounter);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [emails]);
 
   async function loadEmails() {
     try {
@@ -53,21 +48,17 @@ export function EmailIndex() {
     }
   }
 
-  function countFolder(folderId) {
-    return emails.filter((email) => email.folder === folderId).length;
+  async function countInbox() {
+    try {
+      const count = await emailService.countFolder("inbox");
+      setInboxCounter(count);
+    } catch (err) {
+      console.log("Had issues counting inbox", err);
+    }
   }
 
-  // async function countInbox() {
-  //   try {
-  //     const emails = await emailService.query(filterBy);
-  //     setEmails(emails);
-  //   } catch (err) {
-  //     console.log("Had issues loading emails", err);
-  //   }
-  // }
-
   function onSetFilter(fieldsToUpdate) {
-    console.log("EmailIndex.onsetfilter , fieldstoupdate ",fieldsToUpdate);
+    console.log("EmailIndex.onsetfilter , fieldstoupdate ", fieldsToUpdate);
     setFilterBy((prevFilterBy) => ({ ...prevFilterBy, ...fieldsToUpdate }));
   }
 
@@ -102,18 +93,17 @@ export function EmailIndex() {
     //   return prev;
     // });
 
-    const url=`/${curFolder}?compose=new`
-    navigate(url)
+    const url = `/${curFolder}?compose=new`;
+    navigate(url);
   }
 
-  function onFolderClick(folderId, inboxCounter) {
-    console.log("EmailIndex.onFolderClick", folderId);
-    // const field = "folder"
-    // const value = folderId
-    // onSetFilter((prevFilter) => ({ ...prevFilter, [field]: value }));
+  function onFolderClick(folderId) {
+    const field = "folder";
+    const value = folderId;
+    onSetFilter({ [field]: value });
 
     // const navigateArgs = {
-    //   pathname: `/email/${folder}`,
+    //   pathname: `/${folder}`,
     // };
     // const composeVal = searchParams.get("compose");
     // if (composeVal) {
@@ -122,25 +112,29 @@ export function EmailIndex() {
     // navigate(navigateArgs);
   }
 
-  const isComposeOpen =  !!searchParams.get("compose")
-
   return (
     <section className="emailindex">
       <HamburgerMenu />
       <Logo />
-      <SideBar onComposeClick={onComposeClick} onFolderClick={onFolderClick} />
+      <SideBar
+        onComposeClick={onComposeClick}
+        onFolderClick={onFolderClick}
+        inboxCounter={inboxCounter}
+      />
       <EmailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
 
       <section className="emailindex-main">
         <EmailListTopBar />
-        {!emailId && <EmailList
-          emails={emails}
-          folder={filterBy.folder}
-          onUpdateEmail={onUpdateEmail}
-          onDeleteEmail={onDeleteEmail}
-        />}
-        {emailId && <Outlet/>}
-        {(isComposeOpen) && <EmailCompose/>}
+        {!emailId && (
+          <EmailList
+            emails={emails}
+            folder={filterBy.folder}
+            onUpdateEmail={onUpdateEmail}
+            onDeleteEmail={onDeleteEmail}
+          />
+        )}
+        {emailId && <Outlet />}
+        {isComposeOpen && <EmailCompose />}
       </section>
     </section>
   );
